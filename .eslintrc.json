@@ -8,9 +8,9 @@
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals",
-    "standard",
-    "plugin:react/recommended",
-    "plugin:tailwindcss/recommended",
+    // "standard",
+    // "plugin:react/recommended",
+    // "plugin:tailwindcss/recommended",
     "prettier"
   ],
   "parserOptions": {

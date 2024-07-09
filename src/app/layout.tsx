@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/providers/queryProvider";
+import { ConvexClientProvider } from "@/providers/convex-client-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,9 +36,9 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <ClerkProvider>
+          <ConvexClientProvider>
             <QueryProvider>{children}</QueryProvider>
-          </ClerkProvider>
+          </ConvexClientProvider>
         </ThemeProvider>
       </body>
     </html>
