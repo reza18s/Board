@@ -4,9 +4,9 @@ import React from "react";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/providers/queryProvider";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -39,6 +39,8 @@ export default function RootLayout({
           <ConvexClientProvider>
             <QueryProvider>{children}</QueryProvider>
           </ConvexClientProvider>
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
