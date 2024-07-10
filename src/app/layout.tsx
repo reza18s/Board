@@ -5,8 +5,8 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
 import QueryProvider from "@/providers/queryProvider";
-import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -30,18 +30,22 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          disableTransitionOnChange
-          enableSystem
+        <ClerkProvider
+          appearance={{
+            variables: { colorPrimary: "#ffbf42" },
+            layout: { logoPlacement: "none" },
+          }}
         >
-          <ConvexClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange
+            enableSystem
+          >
             <QueryProvider>{children}</QueryProvider>
-          </ConvexClientProvider>
-
-          <Toaster />
-        </ThemeProvider>
+            <Toaster />
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
