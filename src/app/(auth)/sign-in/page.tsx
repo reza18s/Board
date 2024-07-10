@@ -1,5 +1,5 @@
-import LoginForm from "@/components/Auth/LoginForm";
-import SignInFormProvider from "@/components/Auth/LoginFormProvider";
+import LoginForm from "@/components/Auth/sign-in/LoginForm";
+import SignInFormProvider from "@/components/Auth/sign-in/LoginFormProvider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
@@ -17,7 +17,7 @@ const SignInPage = () => {
               </Button>
               <p>
                 Don’t have an account?{" "}
-                <Link href="/auth/sign-up" className="font-bold">
+                <Link href="/sign-up" className="font-bold">
                   Create one
                 </Link>
               </p>

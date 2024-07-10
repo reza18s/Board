@@ -1,26 +1,18 @@
-import { createStore } from "zustand/vanilla";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 
-export type CounterState = {
-  count: number;
-};
-
-export type CounterActions = {
-  decrementCount: () => void;
-  incrementCount: () => void;
-};
-
-export type CounterStore = CounterState & CounterActions;
-
-export const defaultInitState: CounterState = {
-  count: 0,
-};
-
-export const createCounterStore = (
-  initState: CounterState = defaultInitState,
+const useStore = <T, F>(
+  store: (callback: (state: T) => unknown) => unknown,
+  callback: (state: T) => F,
 ) => {
-  return createStore<CounterStore>()((set) => ({
-    ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
-  }));
+  const result = store(callback) as F;
+  const [data, setData] = useState<F>();
+
+  useEffect(() => {
+    setData(result);
+  }, [result]);
+
+  return data;
 };
+
+export default useStore;

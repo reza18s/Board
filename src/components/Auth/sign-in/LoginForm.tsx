@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import FormGenerator from "../global/FormGenerator";
+import FormGenerator from "../../global/FormGenerator";
 import { USER_LOGIN_FORM } from "@/constants/forms";
 
 const LoginForm = () => {

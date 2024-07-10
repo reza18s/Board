@@ -44,6 +44,7 @@ const FormGenerator = ({
             type={type}
             placeholder={placeholder}
             form={form}
+            autoComplete="additional-name"
             defaultValue={defaultValue}
             {...register(name)}
           />

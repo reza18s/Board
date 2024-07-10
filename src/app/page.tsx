@@ -1,10 +1,12 @@
+"use client";
 import { ModeToggle } from "@/components/global/mode-toggle";
-import { useParams, useSearchParams } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <div>
       <ModeToggle></ModeToggle>
+      <UserButton></UserButton>
       <h1>Home</h1>
     </div>
   );

@@ -1,31 +1,30 @@
 "use client";
-import { useAuthContextHook } from "@/context/useAuthContext";
+import { useLocalStore } from "@/lib/stores/useLocalStore";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { useStore } from "zustand";
 
-type Props = {};
-
-const HighLightBar = (props: Props) => {
-  const { currentStep } = useAuthContextHook();
+const HighLightBar = () => {
+  const store = useStore(useLocalStore, (state) => state);
 
   return (
     <div className="grid grid-cols-3 gap-3">
       <div
         className={cn(
           "col-span-1 h-2 rounded-full",
-          currentStep == 1 ? "bg-orange" : "bg-platinum",
+          store.signUpStep == 1 ? "bg-orange-400" : "bg-gray-400",
         )}
       ></div>
       <div
         className={cn(
           "col-span-1 h-2 rounded-full",
-          currentStep == 2 ? "bg-orange" : "bg-platinum",
+          store.signUpStep == 2 ? "bg-orange-400" : "bg-gray-400",
         )}
       ></div>
       <div
         className={cn(
           "col-span-1 h-2 rounded-full",
-          currentStep == 3 ? "bg-orange" : "bg-platinum",
+          store.signUpStep == 3 ? "bg-orange-400" : "bg-gray-400",
         )}
       ></div>
     </div>

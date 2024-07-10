@@ -1,36 +1,37 @@
 "use client";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import TypeSelectionForm from "./type-selection-form";
 import dynamic from "next/dynamic";
-import { Spinner } from "@/components/spinner";
-import { useAuthContextHook } from "@/context/useAuthContext";
+import TypeSelectionForm from "./TypeSelectionForm";
+import { Spinner } from "../../loader/Spinner";
+import { useStore } from "zustand";
+import { useLocalStore } from "@/lib/stores/useLocalStore";
 
-const DetailForm = dynamic(() => import("./account-details-form"), {
+const DetailForm = dynamic(() => import("./AccountDetailsForm"), {
   ssr: false,
+  // @ts-ignore
   loading: Spinner,
 });
 
-const OTPForm = dynamic(() => import("./otp-form"), {
+const OTPForm = dynamic(() => import("./OtpForm"), {
   ssr: false,
+  // @ts-ignore
   loading: Spinner,
 });
 
-type Props = {};
-
-const RegistrationFormStep = (props: Props) => {
+const RegistrationFormStep = () => {
   const {
     register,
     formState: { errors },
     setValue,
   } = useFormContext();
-  const { currentStep } = useAuthContextHook();
+  const store = useStore(useLocalStore, (state) => state);
   const [onOTP, setOnOTP] = useState<string>("");
   const [onUserType, setOnUserType] = useState<"owner" | "student">("owner");
 
   setValue("otp", onOTP);
 
-  switch (currentStep) {
+  switch (store.signUpStep) {
     case 1:
       return (
         <TypeSelectionForm

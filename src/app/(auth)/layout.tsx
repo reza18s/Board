@@ -13,6 +13,7 @@ const Layout = async ({ children }: Props) => {
   if (user) {
     redirect("/");
   }
+  console.log(user);
 
   return (
     <div className="flex h-screen w-full justify-center">
