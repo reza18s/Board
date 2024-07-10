@@ -15,6 +15,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className,
         )}
         ref={ref}
+        autoComplete="one-time-code"
+        autoSave="off"
         {...props}
       />
     );

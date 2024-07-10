@@ -33,7 +33,7 @@ export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
   {
     id: "4",
     inputType: "input",
-    placeholder: "Confrim Password",
+    placeholder: "Confirm Password",
     name: "confirmPassword",
     type: "password",
   },

@@ -52,9 +52,9 @@ export const useSignUpForm = () => {
   const methods = useForm<UserRegistrationProps>({
     resolver: zodResolver(UserRegistrationSchema),
     defaultValues: {
-      fullname: store?.UserData.fullname,
-      email: store?.UserData.email,
-      type: store?.UserData.type,
+      fullname: store?.UserData.fullname || "",
+      email: store?.UserData.email || "",
+      type: store?.UserData.type || "",
       password: "",
       confirmPassword: "",
     },
@@ -66,6 +66,7 @@ export const useSignUpForm = () => {
     password: string,
     fullname: string,
   ) => {
+    console.log("ffff");
     if (!isLoaded) {
       return;
     }
@@ -90,12 +91,13 @@ export const useSignUpForm = () => {
 
   const onHandleSubmit = methods.handleSubmit(
     async (values: UserRegistrationProps) => {
+      console.log("fuck");
       if (!isLoaded) {
         return;
       }
-
       try {
         setLoading(true);
+
         const completeSignUp = await signUp.attemptEmailAddressVerification({
           code: values.otp,
         });
@@ -121,7 +123,7 @@ export const useSignUpForm = () => {
           //   });
 
           setLoading(false);
-          //   router.push("/dashboard");
+          router.push("/dashboard");
 
           // }
 
@@ -138,6 +140,7 @@ export const useSignUpForm = () => {
         toast({
           title: "Error",
           description: error.errors[0].longMessage,
+          variant: "destructive",
         });
       }
     },

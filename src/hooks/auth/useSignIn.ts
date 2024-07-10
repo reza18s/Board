@@ -53,16 +53,16 @@ export const useSignInForm = () => {
         setLoading(false);
         console.error(JSON.stringify(error, null, 2));
         if (
-          error.errors[0].code === "form_password_incorrect" ||
-          error.errors[0].code === "form_identifier_not_found"
+          error.errors[0].code == "form_password_incorrect" ||
+          error.errors[0].code == "form_identifier_not_found"
         ) {
-          toast({
+          return toast({
             title: "Error",
             description: "email/password is incorrect try again",
             variant: "destructive",
           });
         }
-        toast({
+        return toast({
           title: "Error",
           description: "something went wrong please try again!",
           variant: "destructive",

@@ -12,7 +12,6 @@ const ButtonHandler = () => {
   const { toast } = useToast();
   const { formState, getFieldState, getValues } = useFormContext();
   const { onGenerateOTP } = useSignUpForm();
-
   const store = useStore(useLocalStore, (state) => state);
   const { isDirty: isName } = getFieldState("fullname", formState);
   const { isDirty: isEmail } = getFieldState("email", formState);
@@ -38,7 +37,6 @@ const ButtonHandler = () => {
     return (
       <div className="flex w-full flex-col items-center gap-3">
         <Button
-          type="submit"
           className="w-full"
           {...(isName &&
             isEmail &&
