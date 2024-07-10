@@ -6,6 +6,7 @@ type UserRegistrationProps = {
   label?: string;
   placeholder: string;
   name: string;
+  autoComplete?: string;
 };
 
 export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
@@ -15,6 +16,7 @@ export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
     placeholder: "Full name",
     name: "fullname",
     type: "text",
+    autoComplete: "name",
   },
   {
     id: "2",
@@ -22,6 +24,7 @@ export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
     placeholder: "Email",
     name: "email",
     type: "email",
+    autoComplete: "email",
   },
   {
     id: "3",
@@ -29,6 +32,7 @@ export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
     placeholder: "Password",
     name: "password",
     type: "password",
+    autoComplete: "new-password",
   },
   {
     id: "4",
@@ -36,6 +40,7 @@ export const USER_REGISTRATION_FORM: UserRegistrationProps[] = [
     placeholder: "Confirm Password",
     name: "confirmPassword",
     type: "password",
+    autoComplete: "off",
   },
 ];
 
@@ -46,6 +51,7 @@ export const USER_LOGIN_FORM: UserRegistrationProps[] = [
     placeholder: "Enter your email",
     name: "email",
     type: "email",
+    autoComplete: "email",
   },
   {
     id: "2",
@@ -53,5 +59,6 @@ export const USER_LOGIN_FORM: UserRegistrationProps[] = [
     placeholder: "Password",
     name: "password",
     type: "password",
+    autoComplete: "new-password",
   },
 ];

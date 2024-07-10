@@ -8,6 +8,7 @@ import QueryProvider from "@/providers/queryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 
+import { ConvexClientProvider } from "@/providers/convex-client-provider";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -36,15 +37,17 @@ export default function RootLayout({
             layout: { logoPlacement: "none" },
           }}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            disableTransitionOnChange
-            enableSystem
-          >
-            <QueryProvider>{children}</QueryProvider>
-            <Toaster />
-          </ThemeProvider>
+          <ConvexClientProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              disableTransitionOnChange
+              enableSystem
+            >
+              <QueryProvider>{children}</QueryProvider>
+              <Toaster />
+            </ThemeProvider>
+          </ConvexClientProvider>
         </ClerkProvider>
       </body>
     </html>

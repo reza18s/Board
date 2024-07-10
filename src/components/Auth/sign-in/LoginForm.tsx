@@ -23,6 +23,7 @@ const LoginForm = () => {
           register={register}
           name={field.name}
           label={field.name}
+          autoComplete={field.autoComplete}
         />
       ))}
     </>

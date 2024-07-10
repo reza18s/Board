@@ -21,6 +21,7 @@ function AccountDetailsForm({ errors, register }: Props) {
           register={register}
           name={field.name}
           label={field.name}
+          autoComplete={field.autoComplete}
         />
       ))}
     </>

@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { strict } from "assert";
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
@@ -18,6 +17,7 @@ type Props = {
   lines?: number;
   form?: string;
   defaultValue?: string;
+  autoComplete?: string;
 };
 
 const FormGenerator = ({
@@ -32,6 +32,7 @@ const FormGenerator = ({
   label,
   lines,
   options,
+  autoComplete,
 }: Props) => {
   switch (inputType) {
     case "input":
@@ -44,8 +45,8 @@ const FormGenerator = ({
             type={type}
             placeholder={placeholder}
             form={form}
-            autoComplete="additional-name"
             defaultValue={defaultValue}
+            autoComplete={autoComplete}
             {...register(name)}
           />
           <ErrorMessage
