@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-export type Actions = {
-  setUserData: (data: IStore["UserData"]) => void;
-  setSignUpStep: (step: ((prev: number) => number) | number) => void;
-};
+
 interface IStore {
   UserData: {
     email?: string;
@@ -13,6 +10,10 @@ interface IStore {
   };
   signUpStep: number;
 }
+export type Actions = {
+  setUserData: (data: IStore["UserData"]) => void;
+  setSignUpStep: (step: ((prev: number) => number) | number) => void;
+};
 
 export type Store = IStore & Actions;
 
@@ -36,7 +37,7 @@ export const useLocalStore = create<Store>()(
           return set((state) => ({
             ...state,
             signUpStep:
-              typeof step == "function" ? step(state.signUpStep) : step,
+              typeof step === "function" ? step(state.signUpStep) : step,
           }));
         },
       }),

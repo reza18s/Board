@@ -1,17 +1,17 @@
-import { cn } from '@/lib/utils'
-import React from 'react'
+import { cn } from "@/lib/utils";
+import React from "react";
 
 type SpinnerProps = {
-  noPadding?: boolean
-}
+  noPadding?: boolean;
+};
 
 export const Spinner = ({ noPadding }: SpinnerProps) => {
   return (
-    <div className={cn('w-full flex justify-center', noPadding ? '' : 'py-10')}>
+    <div className={cn("flex w-full justify-center", noPadding ? "" : "py-10")}>
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400"
+          className="inline size-8 animate-spin fill-yellow-400 text-gray-200 dark:text-gray-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,5 +28,5 @@ export const Spinner = ({ noPadding }: SpinnerProps) => {
         <span className="sr-only">Loading...</span>
       </div>
     </div>
-  )
-}
+  );
+};

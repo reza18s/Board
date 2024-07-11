@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import "@/style/global.css";
 import React from "react";
-import { Inter as FontSans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
 import QueryProvider from "@/providers/queryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
-
-import { ConvexClientProvider } from "@/providers/convex-client-provider";
-const fontSans = FontSans({
+const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -37,17 +35,15 @@ export default function RootLayout({
             layout: { logoPlacement: "none" },
           }}
         >
-          <ConvexClientProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              disableTransitionOnChange
-              enableSystem
-            >
-              <QueryProvider>{children}</QueryProvider>
-              <Toaster />
-            </ThemeProvider>
-          </ConvexClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange
+            enableSystem
+          >
+            <QueryProvider>{children}</QueryProvider>
+            <Toaster />
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>

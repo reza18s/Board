@@ -39,7 +39,7 @@ export const Item = ({ id, name, imageUrl }: ItemProps) => {
           onClick={onClick}
           width={32}
           height={32}
-          className="h-full w-full rounded-[5px]"
+          className="size-full rounded-[5px]"
         />
       </Hint>
     </div>

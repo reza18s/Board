@@ -66,21 +66,25 @@ export const useSignUpForm = () => {
     password: string,
     fullname: string,
   ) => {
-    console.log("ffff");
     if (!isLoaded) {
       return;
     }
 
     try {
+      setLoading(true);
       await signUp.create({
         emailAddress: email,
-        password: password,
+        password,
       });
 
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       store?.setUserData({ email, fullname });
+      setLoading(false);
       store?.setSignUpStep(3);
     } catch (error: any) {
+      setLoading(false);
+      // eslint-disable-next-line no-console
+      console.error(JSON.stringify(error, null, 2));
       toast({
         title: "Error",
 
@@ -91,7 +95,6 @@ export const useSignUpForm = () => {
 
   const onHandleSubmit = methods.handleSubmit(
     async (values: UserRegistrationProps) => {
-      console.log("fuck");
       if (!isLoaded) {
         return;
       }
@@ -106,7 +109,7 @@ export const useSignUpForm = () => {
           return { message: "Something went wrong!" };
         }
 
-        if (completeSignUp.status == "complete") {
+        if (completeSignUp.status === "complete") {
           if (!signUp.createdUserId) {
             return;
           }

@@ -8,9 +8,11 @@
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals",
-    // "standard",
-    // "plugin:react/recommended",
-    // "plugin:tailwindcss/recommended",
+    "standard",
+    "plugin:react/recommended",
+    "plugin:tailwindcss/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier"
   ],
   "parserOptions": {
@@ -73,6 +75,7 @@
       }
     ],
     // "no-undef": "off",
+    "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": 0
   },

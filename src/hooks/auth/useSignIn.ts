@@ -35,10 +35,9 @@ export const useSignInForm = () => {
       }
       try {
         setLoading(true);
-        console.log(email, password);
         const authenticated = await signIn.create({
-          identifier: "swary2021@gmail.com",
-          password: "Swary2079##",
+          identifier: email,
+          password,
         });
 
         if (authenticated.status === "complete") {
@@ -51,9 +50,12 @@ export const useSignInForm = () => {
         }
       } catch (error: any) {
         setLoading(false);
-        console.error(JSON.stringify(error, null, 2));
+        // eslint-disable-next-line no-console
+        console.error("error useSignin:", JSON.stringify(error, null, 2));
         if (
+          // eslint-disable-next-line eqeqeq
           error.errors[0].code == "form_password_incorrect" ||
+          // eslint-disable-next-line eqeqeq
           error.errors[0].code == "form_identifier_not_found"
         ) {
           return toast({

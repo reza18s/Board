@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 
 export const SearchInput = () => {
   const [value, setValue] = useState("");
-  const router = useRouter();
+  // const router = useRouter();
   // const debouncedValue = useDebounce(value, 500);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -27,7 +27,7 @@ export const SearchInput = () => {
 
   return (
     <div className="relative w-full">
-      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
+      <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         className="w-full max-w-[516px] pl-9"
         placeholder="Search boards"

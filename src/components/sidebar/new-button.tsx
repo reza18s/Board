@@ -17,7 +17,7 @@ export const NewButton = () => {
             align="start"
             sideOffset={18}
           >
-            <button className="flex h-full w-full items-center justify-center rounded-md bg-white/30 transition hover:bg-white/40">
+            <button className="flex size-full items-center justify-center rounded-md bg-white/30 transition hover:bg-white/40">
               <Plus className="text-white" />
             </button>
           </Hint>
