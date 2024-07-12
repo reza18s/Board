@@ -6,50 +6,50 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
-import { SearchInput } from "../global/search-input";
-import { ModeToggle } from "../global/mode-toggle";
-import { InviteButton } from "../global/invite-button";
+import { SearchInput } from "../global/searchInput";
+import { ModeToggle } from "../global/modeToggle";
+import { InviteButton } from "../global/inviteButton";
+import Link from "next/link";
+import Image from "next/image";
+import { cn, orgSwitchTheme } from "@/lib/utils";
+import { Poppins } from "next/font/google";
+import { useTheme } from "next-themes";
 
+const font = Poppins({ subsets: ["latin"], weight: ["600"] });
 export const Navbar = () => {
   const { organization } = useOrganization();
-
+  const { theme } = useTheme();
   const variables = {
     colorPrimary: "#ffbf42",
     colorAlphaShade: "#ffbf42",
   };
-
-  const orgTileStyles = {
-    ...variables,
-    elements: {
-      rootBox: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        maxWidth: "376px",
-      },
-      organizationSwitcherTrigger: {
-        padding: "6px",
-        width: "100%",
-        borderRadius: "8px",
-        border: "1px solid #e5e7eb",
-        justifyContent: "space-between",
-        backgroundColor: "white",
-      },
-    },
-  };
-
+  const orgTileStyles = orgSwitchTheme(theme);
   return (
-    <div className="flex items-center gap-x-4 p-5">
-      <div className="hidden lg:flex lg:flex-1">
+    <div className=" flex items-center justify-between gap-x-4 bg-card p-5">
+      <Link href="/">
+        <div className="flex items-center gap-x-2">
+          <Image src="/logo.svg" alt="Logo" height={28} width={28} />
+          <span
+            className={cn(
+              "hidden text-2xl font-semibold md:flex",
+              font.className,
+            )}
+          >
+            BoardWex
+          </span>
+        </div>
+      </Link>
+      <div className="hidden justify-center lg:flex lg:flex-1">
         <SearchInput />
       </div>
-      <div className="block flex-1 lg:hidden">
-        <OrganizationSwitcher hidePersonal appearance={orgTileStyles} />
+      <div className="flex items-center gap-3">
+        <div className=" lg:hidden">
+          <OrganizationSwitcher hidePersonal appearance={orgTileStyles} />
+        </div>
+        {organization && <InviteButton />}
+        <ModeToggle></ModeToggle>
+        <UserButton appearance={{ variables }} />
       </div>
-      {organization && <InviteButton />}
-      <UserButton appearance={{ variables }} />
-      <ModeToggle></ModeToggle>
     </div>
   );
 };

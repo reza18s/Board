@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar/navbar";
 import { Sidebar } from "@/components/sidebar";
+import { OrgSidebar } from "@/components/sidebar/org-sidebar";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import React from "react";
 
@@ -9,20 +10,16 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <ConvexClientProvider>
-      <main className="h-full">
-        <Sidebar />
-        <div className="h-full xs:pl-[60px]">
-          <div className="flex h-full gap-x-3">
-            {/* <OrgSidebar /> */}
-            <div className="h-full flex-1">
-              <Navbar />
-              {children}
-            </div>
-          </div>
-        </div>
-      </main>
-    </ConvexClientProvider>
+    // <ConvexClientProvider>
+    <main className="h-screen">
+      <Navbar />
+      <div className="flex h-[calc(100vh-80px)] w-full overflow-hidden ">
+        <Sidebar></Sidebar>
+        <OrgSidebar />
+        {children}
+      </div>
+    </main>
+    // </ConvexClientProvider>
   );
 };
 

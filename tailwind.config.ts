@@ -42,7 +42,12 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        gradient: "hsl(var(--gradient))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          100: "hsl(var(--background-100))",
+        },
+
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
