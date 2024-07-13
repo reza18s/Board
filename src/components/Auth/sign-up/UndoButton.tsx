@@ -1,5 +1,5 @@
 "use client";
-import { useLocalStore } from "@/lib/stores/useLocalStore";
+import { useLocalStore } from "@/stores/useLocalStore";
 import { ArrowLeft } from "lucide-react";
 import React from "react";
 import { useStore } from "zustand";

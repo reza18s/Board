@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
-import { useLocalStore } from "@/lib/stores/useLocalStore";
-import useStore from "@/lib/stores/useStore";
+import { useLocalStore } from "@/stores/useLocalStore";
+import useStore from "@/stores/useStore";
 
 export type UserRegistrationProps = {
   type: string;

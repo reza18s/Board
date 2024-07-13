@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSignUpForm } from "@/hooks/auth/useSignUp";
-import { useLocalStore } from "@/lib/stores/useLocalStore";
-import useStore from "@/lib/stores/useStore";
+import { useLocalStore } from "@/stores/useLocalStore";
+import useStore from "@/stores/useStore";
 import Link from "next/link";
 import React from "react";
 import { useFormContext } from "react-hook-form";

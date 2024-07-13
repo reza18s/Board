@@ -11,7 +11,7 @@ import { api } from "../../../convex/_generated/api";
 export const EmptyBoards = () => {
   const router = useRouter();
   const { organization } = useOrganization();
-  const { mutate, pending } = useApiMutation(api.boards.create);
+  const { mutate, pending } = useApiMutation(api.board.create);
 
   const onClick = () => {
     if (!organization) return;

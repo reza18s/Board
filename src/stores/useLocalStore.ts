@@ -42,7 +42,7 @@ export const useLocalStore = create<Store>()(
         },
       }),
 
-      { name: "cobraCase" },
+      { name: "board-user" },
     ),
   ),
 );

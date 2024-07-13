@@ -7,13 +7,12 @@ import { MoreHorizontal } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 
-import { api } from "@/convex/_generated/api";
-import { Actions } from "@/components/actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Footer } from "./footer";
 import { Overlay } from "./overlay";
-
-import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useApiMutation } from "@/hooks/queries/use-api-mutation";
+import { api } from "../../../convex/_generated/api";
+import { Actions } from "../global/actions";
 
 interface BoardCardProps {
   id: string;
@@ -86,7 +85,7 @@ export const BoardCard = ({
 BoardCard.Skeleton = function BoardCardSkeleton() {
   return (
     <div className="aspect-[100/127] overflow-hidden rounded-lg">
-      <Skeleton className="h-full w-full" />
+      <Skeleton className="size-full" />
     </div>
   );
 };

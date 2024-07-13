@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import TypeSelectionForm from "./TypeSelectionForm";
 import { Spinner } from "../../loader/Spinner";
 import { useStore } from "zustand";
-import { useLocalStore } from "@/lib/stores/useLocalStore";
+import { useLocalStore } from "@/stores/useLocalStore";
 
 const DetailForm = dynamic(() => import("./AccountDetailsForm"), {
   ssr: false,
