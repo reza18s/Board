@@ -51,10 +51,11 @@ export const BoardCard = ({
   );
 
   const toggleFavorite = () => {
-    if (isFavorite)
+    if (isFavorite) {
       onUnfavorite({ id }).catch(() => toast.error("Failed to unfavorite"));
-    else
+    } else {
       onFavorite({ id, orgId }).catch(() => toast.error("Failed to favorite"));
+    }
   };
 
   return (

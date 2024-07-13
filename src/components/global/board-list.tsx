@@ -1,13 +1,13 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 
-import { api } from "@/convex/_generated/api";
 import { EmptySearch } from "../empty/empty-search";
 import { EmptyBoards } from "../empty/empty-boards";
 import { NewBoardButton } from "./new-board-button";
 import { EmptyFavorites } from "../empty/empty-favorites";
 import { BoardCard } from "../board-card";
+import { api } from "../../../convex/_generated/api";
 
 interface BoardListProps {
   orgId: string;
@@ -18,10 +18,7 @@ interface BoardListProps {
 }
 
 export const BoardList = ({ orgId, query }: BoardListProps) => {
-  const data = useQuery(api.boards.get, {
-    orgId,
-    ...query,
-  });
+  const data = useMutation(api.boards.get);
 
   if (data === undefined) {
     return (
