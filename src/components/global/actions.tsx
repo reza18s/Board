@@ -14,8 +14,9 @@ import { useApiMutation } from "@/hooks/queries/use-api-mutation";
 import { api } from "../../../convex/_generated/api";
 import React from "react";
 import useStore from "@/stores/useStore";
-import { useRenameModal } from "@/stores/useRenameModel";
+import { useModal } from "@/stores/useModal";
 import { ConfirmModal } from "./confirm-modal";
+import { RenameModal } from "../modals/rename-modal";
 
 interface ActionsProps {
   children: React.ReactNode;
@@ -32,7 +33,7 @@ export const Actions = ({
   id,
   title,
 }: ActionsProps) => {
-  const onOpen = useStore(useRenameModal, (state) => state.onOpen);
+  const model = useStore(useModal, (state) => state);
   const { mutate, pending } = useApiMutation(api.board.remove);
 
   const onCopyLink = () => {
@@ -55,15 +56,19 @@ export const Actions = ({
         onClick={(e) => e.stopPropagation()}
         side={side}
         sideOffset={sideOffset}
-        className="w-60"
+        className="ml-5 mt-20 w-60"
       >
         <DropdownMenuItem onClick={onCopyLink} className="cursor-pointer p-3">
           <Link2 className="mr-2 size-4" />
           Copy board link
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => onOpen!(id, title)}
-          className="cursor-pointer p-3"
+          onClick={() =>
+            model?.setOpen(<RenameModal></RenameModal>, {
+              BoardCard: { id, title },
+            })
+          }
+          className=" cursor-pointer p-3"
         >
           <Pencil className="mr-2 size-4" />
           Rename

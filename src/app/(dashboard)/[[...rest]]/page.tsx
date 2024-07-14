@@ -15,12 +15,17 @@ const DashboardPage = ({ searchParams }: DashboardPageProps) => {
   const { organization } = useOrganization();
 
   return (
-    <div className="h-[calc(100%-80px)] flex-1 p-6">
+    <div className="relative h-[calc(100%)] flex-1 overflow-scroll">
+      <div className="pointer-events-none fixed z-[3] h-20 w-full bg-gradient-to-b from-background/50" />
+
       {!organization ? (
         <EmptyOrg />
       ) : (
-        <BoardList orgId={organization.id} query={searchParams} />
+        <div className="p-6">
+          <BoardList orgId={organization.id} query={searchParams} />
+        </div>
       )}
+      <div className="pointer-events-none fixed bottom-0 z-[3] h-10 w-full bg-gradient-to-t from-background/50" />
     </div>
   );
 };

@@ -12,7 +12,6 @@ export const EmptyBoards = () => {
   const router = useRouter();
   const { organization } = useOrganization();
   const { mutate, pending } = useApiMutation(api.board.create);
-
   const onClick = () => {
     if (!organization) return;
 
@@ -22,7 +21,7 @@ export const EmptyBoards = () => {
     })
       .then((id) => {
         toast.success("Board created");
-        router.push(`/board/${id}`);
+        // router.push(`/board/${id}`);
       })
       .catch(() => toast.error("Failed to create board"));
   };

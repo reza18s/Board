@@ -4,18 +4,13 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { LayoutDashboard, Star } from "lucide-react";
 import { OrganizationSwitcher } from "@clerk/nextjs";
-
-import { Button } from "@/components/ui/button";
-
-import { useTheme } from "next-themes";
-import { orgSwitchTheme } from "@/lib/utils";
+import { orgSwitchTheme } from "../global/modeToggle";
+import { Button } from "../ui/button";
 
 export const OrgSidebar = () => {
   const searchParams = useSearchParams();
   const favorites = searchParams.get("favorites");
-  const { theme } = useTheme();
-
-  const orgTileStyles = orgSwitchTheme(theme);
+  const orgTileStyles = orgSwitchTheme();
 
   return (
     <div className="hidden w-[230px] flex-col space-y-6 bg-card  px-5 pt-5 lg:flex">

@@ -59,13 +59,13 @@ export const BoardCard = ({
 
   return (
     <Link href={`/board/${id}`}>
-      <div className="group flex aspect-[100/127] flex-col justify-between overflow-hidden rounded-lg border">
-        <div className="bg-amber-50 relative flex-1">
-          <Image src={imageUrl} alt={title} fill className="object-fit" />
+      <div className="card group flex aspect-[100/127] flex-col justify-between overflow-hidden rounded-lg border">
+        <div className="relative flex-1 bg-card">
+          <Image src={imageUrl} alt={title} fill className="object-fill" />
           <Overlay />
-          <Actions id={id} title={title} side="right">
-            <button className="absolute right-1 top-1 rounded-md bg-white px-1 py-0.5 opacity-0 shadow-sm outline-none transition-opacity group-hover:opacity-100">
-              <MoreHorizontal className="text-amber opacity-75 transition-opacity hover:opacity-100" />
+          <Actions id={id} title={title} side={"right"}>
+            <button className="absolute right-3 top-3 rounded-md border border-primary bg-white px-1 py-0.5 opacity-0 shadow-sm outline-none transition-opacity  group-hover:opacity-100">
+              <MoreHorizontal className="text-primary/80 opacity-75 transition-opacity hover:opacity-100" />
             </button>
           </Actions>
         </div>

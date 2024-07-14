@@ -42,7 +42,10 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        gradient: "hsl(var(--gradient))",
+        gradient: {
+          dark: "linear-gradient(to top left, #9400d3, #4b0082);",
+          light: "linear-gradient(to top left, #9400d3, #4b0082);",
+        },
         background: {
           DEFAULT: "hsl(var(--background))",
           100: "hsl(var(--background-100))",

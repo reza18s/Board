@@ -5,8 +5,8 @@ import { Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
-// import { api } from "@/convex/_generated/api";
-// import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useApiMutation } from "@/hooks/queries/use-api-mutation";
+import { api } from "../../../convex/_generated/api";
 
 interface NewBoardButtonProps {
   orgId: string;
@@ -24,7 +24,7 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     })
       .then((id) => {
         toast.success("Board created");
-        router.push(`/board/${id}`);
+        // router.push(`/board/${id}`);
       })
       .catch(() => toast.error("Failed to create board"));
   };
@@ -34,11 +34,12 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
       disabled={pending || disabled}
       onClick={onClick}
       className={cn(
-        "col-span-1 flex aspect-[100/127] flex-col items-center justify-center gap-2 rounded-lg bg-amber py-6 hover:bg-amber/80",
-        (pending || disabled) && "cursor-not-allowed opacity-75 hover:bg-amber",
+        "bg-gra col-span-1 flex aspect-[100/127] flex-col items-center justify-center gap-2 rounded-lg bg-gradient-to-bl from-primary to-primary/60 py-6 transition-opacity delay-500 hover:from-primary/90 hover:to-primary/50",
+        (pending || disabled) &&
+          "cursor-not-allowed opacity-75 hover:bg-primary",
       )}
     >
-      <Plus className="stroke-1.5 h-12 w-12 text-white" />
+      <Plus className="size-12 stroke-1 text-white" />
       <p className="text-base font-medium text-white">New board</p>
     </button>
   );

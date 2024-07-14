@@ -7,23 +7,21 @@ import {
 } from "@clerk/nextjs";
 
 import { SearchInput } from "../global/searchInput";
-import { ModeToggle } from "../global/modeToggle";
+import { ModeToggle, orgSwitchTheme } from "../global/modeToggle";
 import { InviteButton } from "../global/inviteButton";
 import Link from "next/link";
 import Image from "next/image";
-import { cn, orgSwitchTheme } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
-import { useTheme } from "next-themes";
 
 const font = Poppins({ subsets: ["latin"], weight: ["600"] });
 export const Navbar = () => {
   const { organization } = useOrganization();
-  const { theme } = useTheme();
   const variables = {
     colorPrimary: "#ffbf42",
     colorAlphaShade: "#ffbf42",
   };
-  const orgTileStyles = orgSwitchTheme(theme);
+  const orgTileStyles = orgSwitchTheme();
   return (
     <div className=" flex items-center justify-between gap-x-4 bg-card p-5">
       <Link href="/">

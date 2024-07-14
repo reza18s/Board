@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/style/global.css";
+import "./globals.css";
 import React from "react";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,8 @@ import QueryProvider from "@/providers/queryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { ConvexClientProvider } from "@/providers/convex-client-provider";
 const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -36,16 +38,21 @@ export default function RootLayout({
             layout: { logoPlacement: "none" },
           }}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            disableTransitionOnChange
-            enableSystem
-          >
-            <QueryProvider>{children}</QueryProvider>
-            <Toaster />
-            <Sonner />
-          </ThemeProvider>
+          <ConvexClientProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              disableTransitionOnChange
+              enableSystem
+            >
+              <QueryProvider>
+                {children}
+                <ModalProvider />
+                <Toaster />
+                <Sonner />
+              </QueryProvider>
+            </ThemeProvider>
+          </ConvexClientProvider>
         </ClerkProvider>
       </body>
     </html>

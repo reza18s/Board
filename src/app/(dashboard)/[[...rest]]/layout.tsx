@@ -10,7 +10,6 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    // <ConvexClientProvider>
     <main className="h-screen">
       <Navbar />
       <div className="flex h-[calc(100vh-80px)] w-full overflow-hidden ">
@@ -19,7 +18,6 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         {children}
       </div>
     </main>
-    // </ConvexClientProvider>
   );
 };
 
