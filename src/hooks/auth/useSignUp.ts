@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { useLocalStore } from "@/stores/useLocalStore";
 import useStore from "@/stores/useStore";
+import { api } from "../../../convex/_generated/api";
+import { useApiMutation } from "../queries/use-api-mutation";
 
 export type UserRegistrationProps = {
   type: string;
@@ -44,6 +46,7 @@ export const UserRegistrationSchema: ZodType<UserRegistrationProps> = z
   });
 
 export const useSignUpForm = () => {
+  const { mutate } = useApiMutation(api.users.store);
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
   const { signUp, isLoaded, setActive } = useSignUp();
@@ -114,29 +117,12 @@ export const useSignUpForm = () => {
             return;
           }
 
-          // const registered = await onCompleteUserRegistration(
-          //   values.fullname,
-          //   signUp.createdUserId,
-          //   values.type,
-          // );
-
-          // if (registered?.status == 200 && registered.user) {
-          //   await setActive({
-          //     session: completeSignUp.createdSessionId,
-          //   });
-
           setLoading(false);
-          router.push("/dashboard");
-
-          // }
-
           store?.setSignUpStep(1);
-          // if (registered?.status == 400) {
-          //   toast({
-          //     title: "Error",
-          //     description: "Something went wrong!",
-          //   });
-          // }
+          router.push("/dashboard");
+          setTimeout(() => {
+            mutate({ email: values.email });
+          }, 10000);
         }
       } catch (error: any) {
         setLoading(false);

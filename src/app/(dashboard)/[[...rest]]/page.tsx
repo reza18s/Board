@@ -3,7 +3,6 @@
 import { BoardList } from "@/components/board/board-list";
 import { EmptyOrg } from "@/components/empty/empty-org";
 import { useOrganization } from "@clerk/nextjs";
-
 interface DashboardPageProps {
   searchParams: {
     search?: string;
@@ -13,7 +12,6 @@ interface DashboardPageProps {
 
 const DashboardPage = ({ searchParams }: DashboardPageProps) => {
   const { organization } = useOrganization();
-
   return (
     <div className="relative h-[calc(100%)] flex-1 overflow-scroll">
       <div className="pointer-events-none fixed z-[3] h-20 w-full bg-gradient-to-b from-background/50" />

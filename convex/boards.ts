@@ -1,8 +1,18 @@
 import { v } from "convex/values";
 import { getAllOrThrow } from "convex-helpers/server/relationships";
 
-import { query } from "./_generated/server";
-
+import { mutation, query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
+type IBoards = {
+  _id: Id<"boards">;
+  _creationTime: number;
+  title: string;
+  orgId: string;
+  authorId: string;
+  authorName: string;
+  imageUrl: string;
+  isFavorite?: boolean;
+}[];
 export const get = query({
   args: {
     orgId: v.string(),
@@ -11,32 +21,38 @@ export const get = query({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-
     if (!identity) {
       throw new Error("Unauthorized");
     }
 
     if (args.favorites) {
-      const favoritedBoards = await ctx.db
-        .query("userFavorites")
-        .withIndex("by_user_org", (q) =>
-          q.eq("userId", identity.subject).eq("orgId", args.orgId),
+      const user = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) =>
+          q.eq("tokenIdentifier", identity.tokenIdentifier),
         )
-        .order("desc")
-        .collect();
+        .unique();
+      if (!user) {
+        throw new Error("user not found in the database");
+      }
 
-      const ids = favoritedBoards.map((b) => b.boardId);
+      const ids = user?.favorites.map((b) => b.boardId);
+      if (!ids) {
+        throw new Error("user dose not have any favorite");
+      }
 
       const boards = await getAllOrThrow(ctx.db, ids);
 
-      return boards.map((board) => ({
-        ...board,
-        isFavorite: true,
-      }));
+      return {
+        boards: boards.map((board) => ({
+          ...board,
+          isFavorite: true,
+        })),
+      };
     }
 
     const title = args.search as string;
-    let boards = [];
+    let boards: IBoards = [];
 
     if (title) {
       boards = await ctx.db
@@ -52,24 +68,59 @@ export const get = query({
         .order("desc")
         .collect();
     }
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier),
+      )
+      .unique();
+    if (!user) {
+      return { boards };
+    }
+    const existingFavorite: { boardId: Id<"boards">; org_id: string }[] = [];
 
-    const boardsWithFavoriteRelation = boards.map((board) => {
-      return ctx.db
-        .query("userFavorites")
-        .withIndex("by_user_board", (q) =>
-          q.eq("userId", identity.subject).eq("boardId", board._id),
-        )
-        .unique()
-        .then((favorite) => {
-          return {
-            ...board,
-            isFavorite: !!favorite,
-          };
-        });
+    boards = boards.map((board) => {
+      user.favorites.map(
+        // @ts-ignore
+        (el) =>
+          board._id === el.boardId &&
+          (board.isFavorite = true) &&
+          existingFavorite.push({ boardId: el.boardId, org_id: el.org_id }),
+      );
+      return board;
     });
+    if (existingFavorite.length !== user.favorites.length) {
+      return { boards, existingFavorite };
+    }
 
-    const boardsWithFavoriteBoolean = Promise.all(boardsWithFavoriteRelation);
-
-    return boardsWithFavoriteBoolean;
+    return { boards };
+  },
+});
+export const userUpdateFavorite = mutation({
+  args: {
+    favorites: v.array(
+      v.object({
+        boardId: v.id("boards"),
+        org_id: v.string(),
+      }),
+    ),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthorized");
+    }
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier),
+      )
+      .unique();
+    if (!user) {
+      return;
+    }
+    ctx.db.patch(user._id, {
+      favorites: args.favorites,
+    });
   },
 });

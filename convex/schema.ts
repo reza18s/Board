@@ -14,13 +14,20 @@ export default defineSchema({
       searchField: "title",
       filterFields: ["orgId"],
     }),
-  userFavorites: defineTable({
-    orgId: v.string(),
-    userId: v.string(),
-    boardId: v.id("boards"),
-  })
-    .index("by_board", ["boardId"])
-    .index("by_user_org", ["userId", "orgId"])
-    .index("by_user_board", ["userId", "boardId"])
-    .index("by_user_board_org", ["userId", "boardId", "orgId"]),
+  users: defineTable({
+    name: v.optional(v.string()),
+    tokenIdentifier: v.string(),
+    email: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+    role: v.string(),
+    orgId: v.optional(v.string()),
+    org_role: v.optional(v.string()),
+    favorites: v.array(
+      v.object({
+        boardId: v.id("boards"),
+        org_id: v.string(),
+      }),
+    ),
+  }).index("by_token", ["tokenIdentifier"]),
 });

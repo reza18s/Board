@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
+import { useApiMutation } from "../queries/use-api-mutation";
+import { api } from "../../../convex/_generated/api";
 export type UserLoginProps = {
   email: string;
   password: string;
@@ -20,6 +22,7 @@ export const UserLoginSchema: ZodType<UserLoginProps> = z.object({
     }),
 });
 export const useSignInForm = () => {
+  const { mutate } = useApiMutation(api.users.store);
   const { isLoaded, setActive, signIn } = useSignIn();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -46,8 +49,12 @@ export const useSignInForm = () => {
             title: "Success",
             description: "Welcome back!",
           });
-          router.push("/dashboard");
+          router.push("/");
         }
+        setTimeout(() => {
+          console.log("fuck");
+          mutate({ email });
+        }, 5000);
       } catch (error: any) {
         setLoading(false);
         // eslint-disable-next-line no-console

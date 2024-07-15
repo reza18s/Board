@@ -1,7 +1,6 @@
 import { v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
-
 const images = [
   "/placeholders/1.svg",
   "/placeholders/2.svg",
@@ -50,17 +49,43 @@ export const remove = mutation({
       throw new Error("Unauthorized");
     }
 
-    const userId = identity.subject;
+    const userId = identity.tokenIdentifier;
 
-    const existingFavorite = await ctx.db
-      .query("userFavorites")
-      .withIndex("by_user_board", (q) =>
-        q.eq("userId", userId).eq("boardId", args.id),
-      )
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", userId))
       .unique();
-
-    if (existingFavorite) {
-      await ctx.db.delete(existingFavorite._id);
+    if (!user) {
+      // @ts-ignore
+      await ctx.db.insert("users", {
+        name: identity.name || "",
+        createdAt: `${new Date().getTime()}`,
+        updatedAt: `${new Date().getTime()}`,
+        email: identity.email!,
+        role: "user",
+        favorites: [],
+        // @ts-ignore
+        orgId: identity.org_Id,
+        // @ts-ignore
+        org_role: identity.org_role,
+        tokenIdentifier: identity.tokenIdentifier,
+      });
+      user = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", userId))
+        .unique();
+    }
+    if (!user) {
+      throw new Error("user not exist in database");
+    }
+    const isFavorite = user?.favorites.map((el) => el.boardId === args.id);
+    if (isFavorite) {
+      const newFavorite = user?.favorites.filter(
+        (fav) => fav.boardId !== args.id,
+      );
+      await ctx.db.patch(user!._id, {
+        favorites: newFavorite,
+      });
     }
 
     await ctx.db.delete(args.id);
@@ -109,23 +134,50 @@ export const favorite = mutation({
       throw new Error("Board not found");
     }
 
-    const userId = identity.subject;
+    const userId = identity.tokenIdentifier;
 
-    const existingFavorite = await ctx.db
-      .query("userFavorites")
-      .withIndex("by_user_board", (q) =>
-        q.eq("userId", userId).eq("boardId", board._id),
-      )
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", userId))
       .unique();
+    if (!user) {
+      if (!user) {
+        // @ts-ignore
+        await ctx.db.insert("users", {
+          name: identity.name || "",
+          createdAt: `${new Date().getTime()}`,
+          updatedAt: `${new Date().getTime()}`,
+          email: identity.email!,
+          role: "user",
+          favorites: [],
+          // @ts-ignore
+          orgId: identity.org_Id,
+          // @ts-ignore
+          org_role: identity.org_role,
+          tokenIdentifier: identity.tokenIdentifier,
+        });
+        user = await ctx.db
+          .query("users")
+          .withIndex("by_token", (q) => q.eq("tokenIdentifier", userId))
+          .unique();
+      }
+    }
+    if (!user) {
+      throw new Error("user not exist in database");
+    }
+    const existingFavorite = user?.favorites.find((el) => {
+      return el.boardId === board._id;
+    });
 
     if (existingFavorite) {
       throw new Error("Board already favorited");
     }
 
-    await ctx.db.insert("userFavorites", {
-      userId,
-      boardId: board._id,
-      orgId: args.orgId,
+    await ctx.db.patch(user!._id, {
+      favorites: [
+        ...user!.favorites,
+        { boardId: board._id, org_id: args.orgId },
+      ],
     });
 
     return board;
@@ -141,28 +193,24 @@ export const unfavorite = mutation({
       throw new Error("Unauthorized");
     }
 
-    const board = await ctx.db.get(args.id);
+    const userId = identity.tokenIdentifier;
 
-    if (!board) {
-      throw new Error("Board not found");
-    }
-
-    const userId = identity.subject;
-
-    const existingFavorite = await ctx.db
-      .query("userFavorites")
-      .withIndex("by_user_board", (q) =>
-        q.eq("userId", userId).eq("boardId", board._id),
-      )
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", userId))
       .unique();
-
-    if (!existingFavorite) {
-      throw new Error("Favorited board not found");
+    if (!user) {
+      throw new Error("user not exist in database");
     }
-
-    await ctx.db.delete(existingFavorite._id);
-
-    return board;
+    const isFavorite = user.favorites.map((el) => el.boardId === args.id);
+    if (isFavorite) {
+      const newFavorite = user?.favorites.filter(
+        (fav) => fav.boardId !== args.id,
+      );
+      await ctx.db.patch(user._id, {
+        favorites: newFavorite,
+      });
+    }
   },
 });
 

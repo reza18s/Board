@@ -18,9 +18,14 @@ interface BoardListProps {
 }
 
 export const BoardList = ({ orgId, query }: BoardListProps) => {
-  const data = useQuery(api.boards.get, { orgId });
+  const data = useQuery(api.boards.get, {
+    orgId,
+    search: query.search,
+    favorites: query.favorites,
+  });
+  console.log(data?.existingFavorite);
 
-  if (data === undefined) {
+  if (data?.boards === undefined) {
     return (
       <div>
         <h2 className="text-3xl">
@@ -37,15 +42,15 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
     );
   }
 
-  if (!data?.length && query.search) {
+  if (!data.boards?.length && query.search) {
     return <EmptySearch />;
   }
 
-  if (!data?.length && query.favorites) {
+  if (!data.boards?.length && query.favorites) {
     return <EmptyFavorites />;
   }
 
-  if (!data?.length) {
+  if (!data.boards?.length) {
     return <EmptyBoards />;
   }
 
@@ -56,7 +61,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
       </h2>
       <div className="mt-8 grid grid-cols-1 gap-5 pb-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <NewBoardButton orgId={orgId} />
-        {data?.map((board) => (
+        {data.boards?.map((board) => (
           <BoardCard
             key={board._id}
             id={board._id}
@@ -66,7 +71,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
             authorName={board.authorName}
             createdAt={board._creationTime}
             orgId={board.orgId}
-            isFavorite={board.isFavorite}
+            isFavorite={board.isFavorite || false}
           />
         ))}
       </div>
