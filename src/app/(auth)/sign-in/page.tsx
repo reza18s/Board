@@ -1,5 +1,4 @@
-import LoginForm from "@/components/Auth/sign-in/LoginForm";
-import SignInFormProvider from "@/components/Auth/sign-in/LoginFormProvider";
+import { LoginForm, SignInFormProvider } from "@/components/Auth/sign-in";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";

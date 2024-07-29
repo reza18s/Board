@@ -16,7 +16,7 @@ import React from "react";
 import useStore from "@/stores/useStore";
 import { useModal } from "@/stores/useModal";
 import { ConfirmModal } from "./confirm-modal";
-import { RenameModal } from "../modals/rename-modal";
+import { RenameModal } from "../modals/RenameModal";
 
 interface ActionsProps {
   children: React.ReactNode;

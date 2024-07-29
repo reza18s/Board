@@ -1,5 +1,5 @@
-import Canvas from "@/components/board/canvas";
-import { Loading } from "@/components/global/Loading";
+import { Canvas } from "@/components/board/canvas";
+import { Loading } from "@/components/loader/Loading";
 // import { Canvas } from "./_components/canvas";
 import { Room } from "@/components/global/room";
 

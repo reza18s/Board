@@ -2,10 +2,10 @@
 
 import { useQuery } from "convex/react";
 
-import { EmptySearch } from "../empty/empty-search";
-import { EmptyBoards } from "../empty/empty-boards";
+import { EmptySearch } from "../empty/EmptySearch";
+import { EmptyBoards } from "../empty/EmptyBoards";
 import { NewBoardButton } from "../global/new-board-button";
-import { EmptyFavorites } from "../empty/empty-favorites";
+import { EmptyFavorites } from "../empty/EmptyFavorites";
 import { BoardCard } from "./Card/boardCard";
 import { api } from "../../../convex/_generated/api";
 

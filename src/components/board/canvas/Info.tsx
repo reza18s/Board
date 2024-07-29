@@ -5,14 +5,16 @@ import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { useQuery } from "convex/react";
 import { Menu } from "lucide-react";
-// import { Actions } from "@/components/actions";
 import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
-// import { useRenameModal } from "@/store/use-rename-modal";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Hint } from "@/components/global/hint";
+import { Actions } from "@/components/global/actions";
+import { useModal } from "@/stores/useModal";
+import useStore from "@/stores/useStore";
+import { RenameModal } from "@/components/modals/RenameModal";
 
 interface InfoProps {
   boardId: string;
@@ -23,7 +25,7 @@ const font = Poppins({ subsets: ["latin"], weight: ["600"] });
 const TabSeparator = () => <div className="px-1.5 text-neutral-300">|</div>;
 
 export const Info = ({ boardId }: InfoProps) => {
-  // const { onOpen } = useRenameModal();
+  const model = useStore(useModal, (state) => state);
 
   const data = useQuery(api.board.get, {
     id: boardId as Id<"boards">,
@@ -49,13 +51,17 @@ export const Info = ({ boardId }: InfoProps) => {
       <Hint label="Edit title" side="bottom" sideOffset={10}>
         <Button
           className="bg-secondary px-2 text-base font-normal"
-          // onClick={() => onOpen(data._id, data.title)}
+          onClick={() =>
+            model?.setOpen(<RenameModal></RenameModal>, {
+              BoardCard: { id: data._id, title: data.title },
+            })
+          }
         >
           {data.title}
         </Button>
       </Hint>
       <TabSeparator />
-      {/* <Actions id={data._id} title={data.title} side="bottom" sideOffset={10}>
+      <Actions id={data._id} title={data.title} side="bottom" sideOffset={10}>
         <div>
           <Hint label="Main menu" side="bottom" sideOffset={10}>
             <Button size="icon">
@@ -63,7 +69,7 @@ export const Info = ({ boardId }: InfoProps) => {
             </Button>
           </Hint>
         </div>
-      </Actions> */}
+      </Actions>
     </div>
   );
 };
