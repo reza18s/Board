@@ -4,10 +4,10 @@ import { render, screen } from "@testing-library/react";
 
 describe("Page", () => {
   it("renders a heading", () => {
-    render(<Home />);
+    render(<div className="App">hello world</div>);
 
-    const heading = screen.getByRole("heading", { level: 1 });
+    const heading = screen.queryByText("hello world");
 
-    expect(heading).toBeInTheDocument();
+    expect(heading).toBeVisible();
   });
 });

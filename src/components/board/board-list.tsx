@@ -6,7 +6,7 @@ import { EmptySearch } from "../empty/empty-search";
 import { EmptyBoards } from "../empty/empty-boards";
 import { NewBoardButton } from "../global/new-board-button";
 import { EmptyFavorites } from "../empty/empty-favorites";
-import { BoardCard } from "./boardCard";
+import { BoardCard } from "./Card/boardCard";
 import { api } from "../../../convex/_generated/api";
 
 interface BoardListProps {
@@ -23,7 +23,6 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
     search: query.search,
     favorites: query.favorites,
   });
-  console.log(data?.existingFavorite);
 
   if (data?.boards === undefined) {
     return (

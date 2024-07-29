@@ -30,7 +30,7 @@ const Layout = async ({ children }: Props) => {
         />
         {children}
       </div>
-      <div className="max-w-4000px bg-cream relative hidden max-h-full w-full flex-1 flex-col gap-3  overflow-hidden pl-24 pt-10 lg:flex">
+      <div className="bg-cream relative hidden max-h-full w-full max-w-[4000px] flex-1 flex-col gap-3  overflow-hidden pl-24 pt-10 lg:flex">
         <h2 className="text-gravel font-bold md:text-4xl">
           Hi, I’m your AI powered sales assistant, Corinna!
         </h2>

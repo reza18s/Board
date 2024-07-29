@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import FormGenerator from "../../global/FormGenerator";
 import { USER_LOGIN_FORM } from "@/constants/forms";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const {
     register,
     formState: { errors },
@@ -29,5 +29,3 @@ const LoginForm = () => {
     </>
   );
 };
-
-export default LoginForm;

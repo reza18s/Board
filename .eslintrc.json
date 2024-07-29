@@ -8,12 +8,11 @@
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals",
-    "standard",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:testing-library/react",
-    "plugin:jest-dom/recommended",
-    "prettier"
+    "plugin:jest-dom/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,7 +21,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "react-hooks"],
   "rules": {
     // Possible errors
     "no-console": "warn",

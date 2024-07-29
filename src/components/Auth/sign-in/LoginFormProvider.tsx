@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const SignInFormProvider = ({ children }: Props) => {
+export const SignInFormProvider = ({ children }: Props) => {
   const { methods, onHandleSubmit, loading } = useSignInForm();
 
   return (
@@ -21,5 +21,3 @@ const SignInFormProvider = ({ children }: Props) => {
     </FormProvider>
   );
 };
-
-export default SignInFormProvider;

@@ -11,8 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Footer } from "./footer";
 import { Overlay } from "./overlay";
 import { useApiMutation } from "@/hooks/queries/use-api-mutation";
-import { api } from "../../../convex/_generated/api";
-import { Actions } from "../global/actions";
+import { api } from "../../../../convex/_generated/api";
+import { Actions } from "../../global/actions";
 
 interface BoardCardProps {
   id: string;
