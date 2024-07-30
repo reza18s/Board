@@ -30,7 +30,7 @@ export const Toolbar = ({
   canRedo,
 }: ToolbarProps) => (
   <div className="absolute left-2 top-1/2 flex -translate-y-1/2 flex-col gap-y-4">
-    <div className="flex flex-col items-center gap-y-1 rounded-md bg-white p-1.5 shadow-md">
+    <div className="flex flex-col items-center gap-y-1 rounded-md bg-accent p-1.5 shadow-md">
       <ToolButton
         label="Select"
         icon={MousePointer2}
@@ -110,7 +110,7 @@ export const Toolbar = ({
         isActive={canvasState.mode === CanvasMode.Pencil}
       />
     </div>
-    <div className="flex flex-col items-center rounded-md bg-white p-1.5 shadow-md">
+    <div className="flex flex-col items-center gap-2 rounded-md bg-accent p-1.5 shadow-md">
       <ToolButton
         label="Undo"
         icon={Undo2}

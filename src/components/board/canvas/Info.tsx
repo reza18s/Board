@@ -36,21 +36,30 @@ export const Info = ({ boardId }: InfoProps) => {
   }
 
   return (
-    <div className="absolute left-2 top-2 flex h-12 items-center rounded-md bg-card px-1.5 shadow-md">
+    <div className="absolute left-2 top-2 flex h-12 items-center rounded-md bg-accent px-1.5 shadow-md">
       <Hint label="Go to boards" side="bottom" sideOffset={10}>
-        <Button asChild className="bg-secondary px-2">
+        <Button
+          asChild
+          className="border border-primary/80 bg-secondary px-2 text-foreground/80  hover:bg-secondary"
+        >
           <Link href="/">
             <Image src="/logo.svg" alt="Board logo" height={24} width={24} />
-            <span className={cn("ml-2 text-xl font-semibold ", font.className)}>
+            <span
+              className={cn(
+                "ml-2 hidden text-xl  font-semibold md:flex",
+                font.className,
+              )}
+            >
               BoardWex
             </span>
           </Link>
         </Button>
       </Hint>
+
       <TabSeparator />
       <Hint label="Edit title" side="bottom" sideOffset={10}>
         <Button
-          className="bg-secondary px-2 text-base font-normal"
+          className="bg-primary/80 px-2 text-base font-semibold "
           onClick={() =>
             model?.setOpen(<RenameModal></RenameModal>, {
               BoardCard: { id: data._id, title: data.title },

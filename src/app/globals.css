@@ -26,7 +26,7 @@ B (255 */
 @layer base {
   /* hsl(300 ,50% ,12.6%) */
   :root {
-    --background: 0 0% 100%; /* hsl(0 0% 100%) */
+    --background: 260 40% 96%; /* hsl(260 40% 98) */
     --foreground: 224 71.4% 4.1%; /* hsl(224 71.4% 4.1%) */
     --card: 260 50% 97%; /* hsl(260 50% 90%) */
     --card-foreground: 224 71.4% 4.1%;
@@ -34,7 +34,7 @@ B (255 */
     --popover-foreground: 224 71.4% 4.1%;
     --primary: 282.09 100% 41.37%; /* hsl(282.09 100% 41.37%) */
     --primary-foreground: 300 10% 97.1%;
-    --secondary: 260 70% 93%; /* hsl(260 70% 93%) */
+    --secondary: 280 70% 93%; /* hsl(260 70% 93%) */
     --secondary-foreground: 220.9 39.3% 11%;
     --muted: 260 70% 95%;
     --muted-foreground: 220 8.9% 46.1%;
