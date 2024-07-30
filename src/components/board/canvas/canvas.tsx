@@ -1,8 +1,8 @@
 "use client";
 import { useOthers } from "@liveblocks/react/suspense";
-import Participants from "./Participants";
 import { Info } from "./Info";
 import { Toolbar } from "./toolbar";
+import { Participants } from "./participants";
 
 export function Canvas({ boardId }: { boardId: string }) {
   const others = useOthers();
@@ -10,9 +10,9 @@ export function Canvas({ boardId }: { boardId: string }) {
   console.log(others);
   return (
     <div className="relative size-full touch-none">
+      <Participants></Participants>
       <Info boardId={boardId}></Info>
       {/* <Toolbar ></Toolbar> */}
-      <Participants></Participants>
     </div>
   );
 }

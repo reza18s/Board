@@ -24,6 +24,7 @@ interface ActionsProps {
   sideOffset?: DropdownMenuContentProps["sideOffset"];
   id: string;
   title: string;
+  className?: string;
 }
 
 export const Actions = ({
@@ -32,6 +33,7 @@ export const Actions = ({
   sideOffset,
   id,
   title,
+  className,
 }: ActionsProps) => {
   const model = useStore(useModal, (state) => state);
   const { mutate, pending } = useApiMutation(api.board.remove);
@@ -56,7 +58,7 @@ export const Actions = ({
         onClick={(e) => e.stopPropagation()}
         side={side}
         sideOffset={sideOffset}
-        className="ml-5 mt-20 w-60"
+        className={className || "ml-5 mt-20 w-60"}
       >
         <DropdownMenuItem onClick={onCopyLink} className="cursor-pointer p-3">
           <Link2 className="mr-2 size-4" />

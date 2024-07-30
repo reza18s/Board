@@ -61,7 +61,13 @@ export const Info = ({ boardId }: InfoProps) => {
         </Button>
       </Hint>
       <TabSeparator />
-      <Actions id={data._id} title={data.title} side="bottom" sideOffset={10}>
+      <Actions
+        id={data._id}
+        title={data.title}
+        side="bottom"
+        sideOffset={10}
+        className=" "
+      >
         <div>
           <Hint label="Main menu" side="bottom" sideOffset={10}>
             <Button size="icon">
